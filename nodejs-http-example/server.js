@@ -1,3 +1,13 @@
+/**
+ * Vi vill kunna från frontend göra ett fetch-anrop till en api-endpoint för att
+ * hämta Shakespeare insults.
+ * 
+ * URL: /api/insults
+ * Method: GET
+ * Description: Returnera insults från insults.json
+ */
+
+
 const http = require('http');
 const fs = require('fs');
 const server = http.createServer() //Skapar vår server
@@ -9,10 +19,25 @@ server.on('request', (request, response) => {
   console.log('Request url:', request.url);
   console.log('Request metod:', request.method);
 
-  //Skickar tillbaka ett svar till klienten
+  //Skickar tillbaka ett svar till klienten. Då vår server
+  //enbart agerar på url:er så kan vi egentligen skicka tillbaka vad vi vill
   if (request.url === '/') {
     const file = fs.createReadStream('frontend/index.html');
     file.pipe(response);
+  } else if (request.url === '/api/insults') {
+    const file = fs.createReadStream('insults.json');
+    file.pipe(response);
+  } else if (request.url === '/api/getInsult') {
+    const result = {
+        insult: "He thinks too much: such men are dangerous. ",
+        play: "Julius Ceasar"
+      }
+
+    /**
+     * Här behöver vi köra JSON.stringify då vi enbart kan skicka tillbaka bytes eller strängar
+     * till en klient
+     */
+    response.end(JSON.stringify(result));
   } else {
     console.log('Sökväg:', 'frontend' + request.url);
     const file = fs.createReadStream('frontend' + request.url);
@@ -20,7 +45,7 @@ server.on('request', (request, response) => {
     //Om filen hittades och kan öppnas så triggas event open
     file.on('open', () => {
       file.pipe(response);
-    })
+    });
 
     //Om filen inte hittades triggas event error istället
     file.on('error', () => {
