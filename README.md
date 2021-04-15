@@ -17,3 +17,4 @@ Introduktion till Node.js: https://www.youtube.com/watch?v=TlB_eWDSMt4 (denna vi
 
 ## Inspelningar
 
+Förmiddag: https://ithogskolan.sharepoint.com/sites/Frontendutvecklare2020/Delade%20dokument/Effektiv%20frontendutveckling/Recordings/M%C3%B6te%20i%20_Effektiv%20frontendutveckling_-20210415_091134-M%C3%B6tesinspelning.mp4?web=1
